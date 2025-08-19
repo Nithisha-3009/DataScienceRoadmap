@@ -8,6 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: The SPA uses a dashboard-style layout with a central interactive timeline for navigation. Users can filter the timeline by learning phase (Beginner, Intermediate, Advanced) and click on any skill to dynamically load its detailed concepts into a dedicated content area. A doughnut chart provides a visual summary of the time commitment per skill. This structure was chosen to transform the static PDF into an engaging, explorable tool, allowing users to grasp the overall journey at a glance while being able to dive into specifics without being overwhelmed. It prioritizes user-driven exploration over linear reading. -->
+    <!-- Visualization & Content Choices: 1. Roadmap Overview -> Goal: Organize/Change -> Viz: Interactive Timeline (HTML/CSS Flexbox) -> Interaction: Click to show details, hover for info -> Justification: More intuitive for a long-term plan than a table. 2. Time Allocation -> Goal: Compare -> Viz: Doughnut Chart -> Interaction: Hover for details -> Justification: Excellent for part-to-whole data representation. Library: Chart.js (Canvas). 3. Skill Details -> Goal: Inform -> Viz: Dynamically populated HTML list -> Interaction: Updates on timeline click -> Justification: Clear and readable for text-heavy content. CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -31,8 +34,8 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
         .timeline-item.completed {
-            background-color: #f0fdf4;
-            border-color: #4CAF50;
+            background-color: #f0fdf4; /* Light green for completed items */
+            border-color: #4CAF50; /* Green border */
         }
         .filter-btn.active {
             background-color: #A57C5A;
@@ -58,7 +61,6 @@
             100% { transform: rotate(360deg); }
         }
     </style>
-    <link rel="stylesheet" href="src/input.css">
 </head>
 <body class="antialiased">
 
@@ -91,9 +93,7 @@
             </div>
         </main>
         
-        <footer class="mt-12 text-center text-gray-500">
-            <p>Based on the "Complete Data Science Roadmap" by Mosh Hamedani.</p>
-        </footer>
+        <!-- The footer section has been removed as per your request. -->
 
     </div>
 
@@ -293,8 +293,10 @@
                         if (skillToUpdate) {
                             skillToUpdate.completed = e.target.checked;
                         }
-                        renderTimeline();
+                        renderTimeline(); 
                     });
+                } else {
+                    console.error(`Checkbox with ID checkbox-${sanitizedSkillId} not found.`);
                 }
 
                 itemEl.querySelector(`[data-skill-trigger="${item.skill}"]`).addEventListener('click', () => {
@@ -375,19 +377,5 @@
         });
 
     </script>
-    <script src="js/index.js"></script>
-    <script>
-        // Example Chart.js doughnut chart
-        document.addEventListener('DOMContentLoaded', () => {
-            const chartDiv = document.createElement('div');
-            chartDiv.className = 'chart-container my-8';
-            chartDiv.innerHTML = '<canvas id="roadmapChart"></canvas>';
-            document.querySelector('.container').appendChild(chartDiv);
-
-            const ctx = document.getElementById('roadmapChart').getContext('2d');
-            const data = {
-                labels: roadmapData.map(item => item.skill),
-                datasets: [{
-                    data: roadmapData.map(item => {
-                        // Convert time to months (rough estimate)
-                        if
+</body>
+</html>
